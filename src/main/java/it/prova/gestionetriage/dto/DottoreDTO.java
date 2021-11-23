@@ -1,27 +1,20 @@
-package it.prova.gestionetriage.model;
+package it.prova.gestionetriage.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import it.prova.gestionetriage.model.Dottore;
 
-@Entity
-public class Dottore {
+public class DottoreDTO {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String cognome;
 	private String codiceDipendente;
+	private PazienteDTO pazienteAttualmenteInVisita;
 
-	private Paziente pazienteAttualmenteInVisita;
-
-	public Dottore() {
-		// TODO Auto-generated constructor stub
+	public DottoreDTO() {
+		super();
 	}
 
-	public Dottore(String nome, String cognome, String codiceDipendente, Paziente pazienteAttualmenteInVisita) {
+	public DottoreDTO(String nome, String cognome, String codiceDipendente, PazienteDTO pazienteAttualmenteInVisita) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
@@ -29,8 +22,8 @@ public class Dottore {
 		this.pazienteAttualmenteInVisita = pazienteAttualmenteInVisita;
 	}
 
-	public Dottore(Long id, String nome, String cognome, String codiceDipendente,
-			Paziente pazienteAttualmenteInVisita) {
+	public DottoreDTO(Long id, String nome, String cognome, String codiceDipendente,
+			PazienteDTO pazienteAttualmenteInVisita) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -71,12 +64,22 @@ public class Dottore {
 		this.codiceDipendente = codiceDipendente;
 	}
 
-	public Paziente getPazienteAttualmenteInVisita() {
+	public PazienteDTO getPazienteAttualmenteInVisita() {
 		return pazienteAttualmenteInVisita;
 	}
 
-	public void setPazienteAttualmenteInVisita(Paziente pazienteAttualmenteInVisita) {
+	public void setPazienteAttualmenteInVisita(PazienteDTO pazienteAttualmenteInVisita) {
 		this.pazienteAttualmenteInVisita = pazienteAttualmenteInVisita;
+	}
+
+	public Dottore buildDottoreModel() {
+		return new Dottore(this.id, this.nome, this.cognome, this.codiceDipendente,
+				this.pazienteAttualmenteInVisita.buildPazienteModel());
+	}
+
+	public static DottoreDTO buildDottoreDTOFromModel(Dottore input) {
+		return new DottoreDTO(input.getId(), input.getNome(), input.getCognome(), input.getCodiceDipendente(),
+				PazienteDTO.buildPazienteDTOFromModel(input.getPazienteAttualmenteInVisita()));
 	}
 
 }
