@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.prova.gestionetriage.exception.PazienteNotDimessoException;
 import it.prova.gestionetriage.model.Paziente;
+import it.prova.gestionetriage.model.StatoPaziente;
 import it.prova.gestionetriage.service.PazienteService;
 
 @RestController
@@ -50,6 +52,8 @@ public class PazienteRestController {
 
 	@PostMapping
 	public Paziente createNewPaziente(@RequestBody Paziente pazienteInput) {
+		pazienteInput.setStatoPaziente(StatoPaziente.IN_ATTESA_VISITA);
+		
 		return pazienteService.save(pazienteInput);
 	}
 
@@ -67,7 +71,12 @@ public class PazienteRestController {
 
 	@DeleteMapping("/{id}")
 	public void deletePaziente(@PathVariable(required = true) Long id) {
+		Paziente paziente = pazienteService.cariscaSingoloElemento(id);
+		d
+		if (paziente.getStatoPaziente().equals(StatoPaziente.DIMESSO))
 		pazienteService.delete(pazienteService.get(id));
+		else 
+			throw new PazienteNotDimessoException("il paziente non è stato dimesso");
 	}
 
 }

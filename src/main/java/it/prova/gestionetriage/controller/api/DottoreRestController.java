@@ -23,6 +23,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import it.prova.gestionetriage.dto.DottoreDTO;
 import it.prova.gestionetriage.dto.DottoreRequestDTO;
 import it.prova.gestionetriage.dto.DottoreResponseDTO;
+import it.prova.gestionetriage.exception.DottoreNotFoundException;
 import it.prova.gestionetriage.model.Dottore;
 import it.prova.gestionetriage.service.DottoreService;
 import reactor.core.publisher.Mono;
@@ -60,10 +61,10 @@ public class DottoreRestController {
 	@PutMapping("/{id}")
 	public Dottore updateDottore(@RequestBody Dottore dottoreInput, @PathVariable Long id) {
 
-		if (dottoreInput.getId() != null)
-			throw new RuntimeException("Non è ammesso fornire un id per la creazione");
-
 		Dottore dottoreToUpdate = dottoreService.get(id);
+		
+		if (dottoreToUpdate == null)
+			throw new DottoreNotFoundException("non ho trovato il dottore");
 
 		ResponseEntity<DottoreResponseDTO> response = webClient.post().uri("")
 				.body(Mono.just(new DottoreRequestDTO(dottoreInput.getId(), dottoreInput.getNome(),
@@ -97,9 +98,7 @@ public class DottoreRestController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public DottoreDTO createNew(@RequestBody DottoreDTO dottoreInput) {
-		if (dottoreInput.getId() != null)
-			throw new RuntimeException("Non è ammesso fornire un id per la creazione");
-
+		
 		ResponseEntity<DottoreResponseDTO> response = webClient.post().uri("")
 				.body(Mono.just(new DottoreRequestDTO(dottoreInput.getNome(), dottoreInput.getCognome(),
 						dottoreInput.getCodiceDipendente())), DottoreRequestDTO.class)
@@ -111,5 +110,7 @@ public class DottoreRestController {
 		Dottore dottoreInserito = dottoreService.inserisciNuovo(dottoreInput.buildDottoreModel());
 		return DottoreDTO.buildDottoreDTOFromModel(dottoreInserito);
 	}
+	
+	// ################ METODI DI BUSINESS #############################
 
 }

@@ -100,11 +100,21 @@ public class PazienteDTO {
 	}
 
 	public Paziente buildPazienteModel() {
+
+		if (this.dottore == null)
+			return new Paziente(this.id, this.nome, this.cognome, this.dataRegistrazione, this.codiceFiscale,
+					this.statoPaziente);
+
 		return new Paziente(this.id, this.nome, this.cognome, this.dataRegistrazione, this.codiceFiscale,
 				this.statoPaziente, this.dottore.buildDottoreModel());
 	}
 
 	public static PazienteDTO buildPazienteDTOFromModel(Paziente input) {
+
+		if (input.getDottore() == null)
+			return new PazienteDTO(input.getId(), input.getNome(), input.getCognome(), input.getDataRegistrazione(),
+					input.getCodiceFiscale(), input.getStatoPaziente(), null);
+
 		return new PazienteDTO(input.getId(), input.getNome(), input.getCognome(), input.getDataRegistrazione(),
 				input.getCodiceFiscale(), input.getStatoPaziente(),
 				DottoreDTO.buildDottoreDTOFromModel(input.getDottore()));
