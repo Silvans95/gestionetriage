@@ -110,7 +110,5 @@ public class DottoreRestController {
 		Dottore dottoreInserito = dottoreService.inserisciNuovo(dottoreInput.buildDottoreModel());
 		return DottoreDTO.buildDottoreDTOFromModel(dottoreInserito);
 	}
-	
-	// ################ METODI DI BUSINESS #############################
 
 }

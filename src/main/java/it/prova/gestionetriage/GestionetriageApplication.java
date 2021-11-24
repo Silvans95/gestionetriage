@@ -1,6 +1,7 @@
 package it.prova.gestionetriage;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import it.prova.gestionetriage.model.Authority;
 import it.prova.gestionetriage.model.AuthorityName;
 import it.prova.gestionetriage.model.Dottore;
+import it.prova.gestionetriage.model.Paziente;
+import it.prova.gestionetriage.model.StatoPaziente;
 import it.prova.gestionetriage.model.User;
 import it.prova.gestionetriage.security.repository.AuthorityRepository;
 import it.prova.gestionetriage.security.repository.UserRepository;
 import it.prova.gestionetriage.service.DottoreService;
+import it.prova.gestionetriage.service.PazienteService;
 
 @SpringBootApplication
 public class GestionetriageApplication {
@@ -33,7 +37,7 @@ public class GestionetriageApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initDottori(DottoreService dottoreService) {
+	public CommandLineRunner initDottori(DottoreService dottoreService, PazienteService pazienteService) {
 		return (args) -> {
 
 			// inizializzo il Db
@@ -45,6 +49,13 @@ public class GestionetriageApplication {
 			dottoreService.save(new Dottore("nome6", "cognome6", "codice6"));
 			dottoreService.save(new Dottore("nome7", "cognome7", "codice7"));
 			dottoreService.save(new Dottore("nome8", "cognome8", "codice8"));
+
+			pazienteService.save(
+					new Paziente("paziente1", "cognome6", new Date(), "paziente1", StatoPaziente.IN_ATTESA_VISITA));
+			pazienteService.save(
+					new Paziente("paziente2", "cognome7", new Date(), "paziente2", StatoPaziente.IN_ATTESA_VISITA));
+			pazienteService.save(
+					new Paziente("paziente3", "cognome8", new Date(), "paziente3", StatoPaziente.IN_ATTESA_VISITA));
 
 			// verifico inserimento
 			System.out.println("Elenco Dottori");

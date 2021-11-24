@@ -94,4 +94,10 @@ public class PazienteServiceImpl implements PazienteService {
 		return pazienteRepository.findAll(specificationCriteria, paging);
 	}
 
+	@Override
+	public Paziente findByCodiceFiscale(String codiceFiscale) {
+		
+		return pazienteRepository.findByCodiceFiscale(codiceFiscale);
+	}
+
 }

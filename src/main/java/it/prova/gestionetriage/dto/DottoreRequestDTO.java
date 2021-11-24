@@ -31,6 +31,11 @@ public class DottoreRequestDTO {
 		this.codiceDipendente = codiceDipendente;
 	}
 
+	public DottoreRequestDTO(String codiceDipendente) {
+		super();
+		this.codiceDipendente = codiceDipendente;
+	}
+
 	public Long getId() {
 		return id;
 	}

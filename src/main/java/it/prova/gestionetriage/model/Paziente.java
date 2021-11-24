@@ -79,6 +79,16 @@ public class Paziente {
 		return id;
 	}
 
+	public Paziente(String nome, String cognome, Date dataRegistrazione, String codiceFiscale,
+			StatoPaziente statoPaziente) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.dataRegistrazione = dataRegistrazione;
+		this.codiceFiscale = codiceFiscale;
+		this.statoPaziente = statoPaziente;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}

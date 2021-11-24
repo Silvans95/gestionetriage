@@ -1,5 +1,9 @@
 package it.prova.gestionetriage.dto;
 
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import it.prova.gestionetriage.model.Dottore;
 
 public class DottoreDTO {
@@ -8,6 +12,8 @@ public class DottoreDTO {
 	private String nome;
 	private String cognome;
 	private String codiceDipendente;
+	
+	@JsonIgnoreProperties(value = { "dottore" })
 	private PazienteDTO pazienteAttualmenteInVisita;
 
 	public DottoreDTO() {
