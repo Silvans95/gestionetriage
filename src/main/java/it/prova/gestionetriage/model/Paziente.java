@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Paziente {
 
@@ -33,6 +35,7 @@ public class Paziente {
 	@Column(name = "statoPaziente")
 	private StatoPaziente statoPaziente;
 
+	@JsonIgnoreProperties(value = { "pazienteAttualmenteInVisita" })
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "dottore_id", referencedColumnName = "id")
 	private Dottore dottore;

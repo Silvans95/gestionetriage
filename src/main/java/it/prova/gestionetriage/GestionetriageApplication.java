@@ -16,6 +16,7 @@ import it.prova.gestionetriage.model.AuthorityName;
 import it.prova.gestionetriage.model.Dottore;
 import it.prova.gestionetriage.model.Paziente;
 import it.prova.gestionetriage.model.StatoPaziente;
+import it.prova.gestionetriage.model.StatoUtente;
 import it.prova.gestionetriage.model.User;
 import it.prova.gestionetriage.security.repository.AuthorityRepository;
 import it.prova.gestionetriage.security.repository.UserRepository;
@@ -88,7 +89,7 @@ public class GestionetriageApplication {
 				user.setUsername("admin");
 				user.setPassword(passwordEncoder.encode("admin"));
 				user.setEmail("admin@example.com");
-
+				user.setStato(StatoUtente.ATTIVO);
 				user = userRepository.save(user);
 
 			}
@@ -116,7 +117,7 @@ public class GestionetriageApplication {
 				commonUser.setUsername("commonUser");
 				commonUser.setPassword(passwordEncoder.encode("commonUser"));
 				commonUser.setEmail("commonUser@example.com");
-
+				commonUser.setStato(StatoUtente.ATTIVO); ;
 				commonUser = userRepository.save(commonUser);
 
 			}

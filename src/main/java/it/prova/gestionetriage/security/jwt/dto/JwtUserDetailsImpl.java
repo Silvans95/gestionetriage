@@ -18,6 +18,7 @@ public class JwtUserDetailsImpl implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 	private final String username;
+	@JsonIgnore
 	private final String password;
 	private final String email;
 	private final Collection<? extends GrantedAuthority> authorities;

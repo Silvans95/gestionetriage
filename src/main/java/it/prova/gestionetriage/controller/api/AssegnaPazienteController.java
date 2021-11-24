@@ -56,7 +56,7 @@ public class AssegnaPazienteController {
 		if (!dottoreRicevuto.isInServizio() || dottoreRicevuto.isInVisita())
 			throw new DottoreOccupatoException("dottore non disponibil");
 
-		ResponseEntity<DottoreResponseDTO> responseModifica = webClient.post().uri("")
+		ResponseEntity<DottoreResponseDTO> responseModifica = webClient.post().uri("/impostaInVisita")
 				.body(Mono.just(new DottoreRequestDTO(dottore.getCodiceDipendente())), DottoreRequestDTO.class)
 				.retrieve().toEntity(DottoreResponseDTO.class).block();
 
