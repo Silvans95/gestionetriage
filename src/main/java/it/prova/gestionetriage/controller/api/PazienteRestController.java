@@ -72,7 +72,6 @@ public class PazienteRestController {
 	@DeleteMapping("/{id}")
 	public void deletePaziente(@PathVariable(required = true) Long id) {
 		Paziente paziente = pazienteService.cariscaSingoloElemento(id);
-		d
 		if (paziente.getStatoPaziente().equals(StatoPaziente.DIMESSO))
 		pazienteService.delete(pazienteService.get(id));
 		else 
