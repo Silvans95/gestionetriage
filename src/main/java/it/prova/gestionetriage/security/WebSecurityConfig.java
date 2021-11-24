@@ -84,12 +84,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js"
-                ).permitAll()
-                .antMatchers("/public/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/dispositivo/**").hasAnyAuthority("ROLE_USER")
-                .antMatchers(HttpMethod.POST,"/api/dispositivo/search").hasAnyAuthority("ROLE_USER")
-                .antMatchers("/api/dispositivo/**").hasAnyAuthority("ROLE_ADMIN")
-                .anyRequest().authenticated();
+                )
+                .permitAll().antMatchers("/public/**")
+                .permitAll().antMatchers(HttpMethod.GET,"/paziente/**")
+                .permitAll().antMatchers(HttpMethod.GET,"/dottore/**")
+                .permitAll().antMatchers(HttpMethod.POST,"/dottore/search")
+                .permitAll().antMatchers(HttpMethod.POST,"/paziente/search")
+                .hasAnyAuthority("ROLE_ADMIN").anyRequest().authenticated();
 
         // Filtro Custom JWT
         httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);

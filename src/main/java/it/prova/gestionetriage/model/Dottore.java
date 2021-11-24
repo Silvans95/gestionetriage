@@ -1,9 +1,13 @@
 package it.prova.gestionetriage.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Dottore {
@@ -11,10 +15,15 @@ public class Dottore {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(name = "nome")
 	private String nome;
+	@Column(name = "cognome")
 	private String cognome;
+	@Column(name = "codiceDipendente")
 	private String codiceDipendente;
 
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "paziente_id", referencedColumnName = "id")
 	private Paziente pazienteAttualmenteInVisita;
 
 	public Dottore() {
@@ -37,6 +46,13 @@ public class Dottore {
 		this.cognome = cognome;
 		this.codiceDipendente = codiceDipendente;
 		this.pazienteAttualmenteInVisita = pazienteAttualmenteInVisita;
+	}
+
+	public Dottore(String nome, String cognome, String codiceDipendente) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.codiceDipendente = codiceDipendente;
 	}
 
 	public Long getId() {
